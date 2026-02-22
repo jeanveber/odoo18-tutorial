@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Groups -->
+    <record id="group_dispatch_admin" model="res.groups">
+        <field name="name">Dispatch Admin</field>
+        <field name="category_id" ref="base.module_category_services"/>
+    </record>
+
+    <record id="group_dispatch_user" model="res.groups">
+        <field name="name">Plumber</field>
+        <field name="category_id" ref="base.module_category_services"/>
+    </record>
+
+    <!-- Record Rules -->
+    <record id="rule_dispatch_admin" model="ir.rule">
+        <field name="name">Dispatch Admin: see all</field>
+        <field name="model_id" ref="model_dispatch_request"/>
+        <field name="groups" eval="[(4, ref('plumber.group_dispatch_admin'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <record id="rule_dispatch_user" model="ir.rule">
+        <field name="name">Plumber: see own requests</field>
+        <field name="model_id" ref="model_dispatch_request"/>
+        <field name="groups" eval="[(4, ref('plumber.group_dispatch_user'))]"/>
+        <field name="domain_force">[('plumber_id', '=', user.id)]</field>
+    </record>
+</odoo>

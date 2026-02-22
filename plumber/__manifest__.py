@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Plumber",
     "version": "1.0",
@@ -9,7 +8,9 @@
     """,
     "depends": ["base", "mail"],
     "data": [
+        "security/security.xml",
         "security/ir.model.access.csv",
+        "views/dispatch_request_views.xml",
     ],
     "installable": True,
     "application": True,
