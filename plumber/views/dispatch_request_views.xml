@@ -8,9 +8,12 @@
             <list>
                 <field name="name"/>
                 <field name="client_name"/>
+                <field name="client_address"/>
                 <field name="plumber_id"/>
                 <field name="date_scheduled"/>
-                <field name="status"/>
+                <field name="status" decoration-success="status=='done'"
+                       decoration-muted="status=='cancelled'"
+                       decoration-danger="status=='failed'"/>
                 <field name="days_until"/>
             </list>
         </field>
@@ -23,11 +26,17 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_set_in_progress" string="Start" type="object"
-                            invisible="status != 'new'"/>
-                    <button name="action_set_done" string="Mark Done" type="object"
+    <button name="action_set_in_progress" string="Start" type="object"
+            invisible="status != 'new'"/>
+    <button name="action_set_done" string="Mark Done" type="object"
                             invisible="status != 'in_progress'"/>
-                    <field name="status" widget="statusbar" statusbar_visible="new,in_progress,done"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="status in ('done', 'cancelled', 'failed')"/>
+                    <button name="action_fail" string="Mark Failed" type="object"
+                            groups="plumber.group_dispatch_admin"
+                            invisible="status in ('done', 'cancelled', 'failed')"/>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="new,in_progress,done,cancelled,failed"/>
                 </header>
                 <sheet>
                     <group>
@@ -37,9 +46,11 @@
                         <field name="plumber_id"/>
                         <field name="date_scheduled"/>
                         <field name="days_until"/>
-                        <field name="note" placeholder="Add progress notes here..."/>
+                        <field name="note"  nolabel="1"  placeholder="Add progress notes here..."/>
                     </group>
-                    <field name="description" string="Description"/>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
                 </sheet>
                 <chatter/>
             </form>
