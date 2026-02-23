@@ -77,6 +77,7 @@
     <menuitem id="menu_my_requests" name="My Requests"
               parent="menu_plumber_root"
               action="action_my_dispatch_requests" sequence="10"/>
+    <!-- Only Admin Sees-->
     <menuitem id="menu_all_requests" name="All Requests"
               parent="menu_plumber_root"
               action="action_all_dispatch_requests" sequence="20"
