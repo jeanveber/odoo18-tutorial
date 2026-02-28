@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+
+        <record id="action_mrbook_booking" model="ir.actions.act_window">
+            <field name="name">Bookings</field>
+            <field name="res_model">mrbook.booking</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <record id="view_mrbook_booking_form" model="ir.ui.view">
+            <field name="name">mrbook.booking.form</field>
+            <field name="model">mrbook.booking</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_confirm" type="object" string = "Confirm"/>
+                        <button name="action_draft" type="object" string = "Draft" invisible= "status!='confirmed'"/>
+                        <button name="action_cancel" type="object" string = "Cancel" invisible="status=='cancelled'"/>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="reference" readonly="True"/>
+                                <field name="room_id"/>
+                                <field name="amenity_ids" widget="many2many_tags" options="{'color_field': 'color'}" readonly="True"/>
+                                <field name="user_id"/>
+                                <field name="status" decoration-success="status=='confirmed'"
+                           decoration-muted="status=='draft'"
+                           decoration-danger="status=='cancelled'"/>
+                            </group>
+                            <group>
+                                <field name="start_datetime"/>
+                                <field name="end_datetime"/>
+                                <field name="duration"/>
+                            </group>
+                        </group>
+                        <field name="notes"/>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mrbook_booking_list" model="ir.ui.view">
+            <field name="name">mrbook.booking.list</field>
+            <field name="model">mrbook.booking</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="reference"/>
+                    <field name="room_id"/>
+                    <field name="user_id"/>
+                    <field name="start_datetime"/>
+                    <field name="end_datetime"/>
+                    <field name="duration"/>
+                    <field name="status" decoration-success="status=='confirmed'"
+                           decoration-muted="status=='draft'"
+                           decoration-danger="status=='cancelled'"/>
+                </list>
+            </field>
+        </record>
+
+    </data>
+</odoo>

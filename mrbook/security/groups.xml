@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+
+        <record id="category_mrbook" model="ir.module.category">
+            <field name="name">Meeting Room Booking</field>
+        </record>
+
+        <record id="group_mrbook_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="mrbook.category_mrbook"/>
+            <field name="comment">This user will be able to create bookings and that's it</field>
+        </record>
+
+        <record id="group_mrbook_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="mrbook.category_mrbook"/>
+            <field name="implied_ids" eval="[(4, ref('mrbook.group_mrbook_user'))]"/>
+            <!-- manager inherits lower level user perms-->
+            <field name="comment">This user will be able to create rooms, bookings</field>
+            <!-- -->
+        </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrbook_room_user,access.mrbook.room.user,model_mrbook_room,mrbook.group_mrbook_user,1,0,0,0
+access_mrbook_room_manager,access.mrbook.room.manager,model_mrbook_room,mrbook.group_mrbook_manager,1,1,1,1
+access_mrbook_amenity_user,access.mrbook.amenity.user,model_mrbook_amenity,mrbook.group_mrbook_user,1,0,0,0
+access_mrbook_amenity_manager,access.mrbook.amenity.manager,model_mrbook_amenity,mrbook.group_mrbook_manager,1,1,1,1
+access_mrbook_booking_user,access.mrbook.booking.user,model_mrbook_booking,mrbook.group_mrbook_user,1,1,1,0
+access_mrbook_booking_manager,access.mrbook.booking.manager,model_mrbook_booking,mrbook.group_mrbook_manager,1,1,1,1

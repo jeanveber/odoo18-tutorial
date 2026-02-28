@@ -1,0 +1,127 @@
+<odoo>
+    <data>
+        <!-- room views-->
+        <!-- List View-->
+        <record id="view_mrbook_room_list" model="ir.ui.view">
+            <field name="name">mrbook.room.list</field>
+            <field name="model">mrbook.room</field>
+            <field name="arch" type="xml">
+                <list>
+                    <!-- what if we leave sheet and group-->
+
+
+                    <field name="name" widget="handle"/>
+                    <field name="capacity"/>
+                    <field name="location"/>
+                    <field name="active"/>
+                    <field name="amenity_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+
+
+                </list>
+            </field>
+        </record>
+
+        <!-- From View -->
+        <record id="view_mrbook_room_form" model="ir.ui.view">
+            <field name="name">mrbook.room.form</field>
+            <field name="model">mrbook.room</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                           <group string="Details">
+                                <field name="name"/>
+                                <field name="capacity"/>
+                                <field name="location"/>
+                                <field name="active"/>
+                            </group>
+                            <group string="Amenities">
+                                <field name="amenity_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <!--
+                                <field name="has_projector"/>
+                                <field name="has_whiteboard"/>
+                                <field name="has_video_conf"/>
+                                <field name="notes"/>-->
+
+                            </group>
+                        </group>
+                        <field name="notes" placeholder="Additional notes about this room..."/>
+                        <notebook>
+                            <page string="Bookings">
+                                    <field name="booking_ids"><!-- I can just leave it bare, but it'd be neater this way-->
+                                        <list>
+                                            <field name="reference"/>
+                                            <field name="user_id"/>
+                                            <field name="start_datetime"/>
+                                            <field name="end_datetime"/>
+                                            <field name="duration"/>
+                                            <field name="status"/>
+                                        </list>
+                                    </field>
+                            </page>
+                        </notebook>
+
+
+                    </sheet>
+
+                   <chatter/>
+                    <!-- Tried this old way of adding chatter, shows raw fields.
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" group="base.group_user"/>
+                            <field name="message_ids"/>
+                        </div>
+                        -->
+
+                </form>
+            </field>
+        </record>
+
+
+            <!-- Amenity View List -->
+        <record id="view_mrbook_amenity_list" model="ir.ui.view">
+            <field name="name">mrbook.amenity.list</field>
+            <field name="model">mrbook.amenity</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Amenity View Form -->
+        <record id="view_mrbook_amenity_form" model="ir.ui.view">
+            <field name="name">mrbook.amenity.form</field>
+            <field name="model">mrbook.amenity</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--action-->
+        <record id="action_mrbook_room" model="ir.actions.act_window">
+            <field name="name">Rooms</field>
+            <field name="res_model">mrbook.room</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new room
+                </p>
+            </field>
+        </record>
+
+
+                <!-- Amenity Action -->
+        <record id="action_mrbook_amenity" model="ir.actions.act_window">
+            <field name="name">Amenities</field>
+            <field name="res_model">mrbook.amenity</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>

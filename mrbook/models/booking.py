@@ -8,19 +8,35 @@ class MeetingRoomBooking(models.Model):
     _inherit = [
         "mail.thread",
         "mail.activity.mixin",
-    ]  # here it's gonna be used way more
+    ]  # I'll add funct later
 
-    name = fields.Char(string="Ref", required=True, tracking=True, copy=False)
-    # it's a relational field
-    room_id = fields.Many2one(
-        "meeting.room", string="Room", required=True, tracking=True
+    reference = fields.Char(
+        string="Reference",
+        required=True,
+        tracking=True,
+        copy=False,
+        default="New",  # noqa: F401
     )
+    _rec_name = "reference"
+    room_id = fields.Many2one(
+        "mrbook.room",
+        string="Room",
+        required=True,
+        tracking=True,
+        ondelete="restrict",  # noqa: F401
+    )
+    # added ondelete restriction
+    amenity_ids = fields.Many2many(
+        string="Amenities", related="room_id.amenity_ids", readonly=True
+    )
+    # related field
+
     user_id = fields.Many2one(
         "res.users",
         string="Booked By",
         default=lambda self: self.env.user,
         tracking=True,
-    )
+    )  # we take odoo users and assign them as users
     start_datetime = fields.Datetime(string="Start", required=True)
     end_datetime = fields.Datetime(string="End", required=True)
     duration = fields.Float(
@@ -45,23 +61,35 @@ class MeetingRoomBooking(models.Model):
             ):  # if those records aren't empty, not False by default
                 time_diff = record.end_datetime - record.start_datetime
                 record.duration = time_diff.total_seconds() / 3600
-            else:
-                record.duration = 0.0
 
     @api.constrains("start_datetime", "end_datetime")
-    def _check_dates(self):
+    def _check_duration(self):
         for record in self:
             if record.start_datetime and record.end_datetime:
                 if record.end_datetime <= record.start_datetime:
                     raise ValidationError("End time must be after start time.")
 
+                time_diff = record.end_datetime - record.start_datetime
+                duration_hours = time_diff.total_seconds() / 3600
+                if duration_hours < 0.5:
+                    raise ValidationError(
+                        "Booking can't be less than 30 minutes!"
+                    )  # noqa: F401
+                if duration_hours > 8:
+                    raise ValidationError(
+                        "Booking can't be more than 8 hours!"
+                    )  # noqa: F401
+                if record.start_datetime <= fields.Datetime.now():
+                    raise ValidationError("Start time mustn't be in the past")
+
+    # simplify
     @api.constrains("room_id", "start_datetime", "end_datetime")
     def _check_double_booking(self):
         for record in self:  # fking black keeps changing
             has_required_fields = (
                 record.room_id
                 and record.start_datetime
-                and record.end_datetime  # noqa: F401
+                and record.end_datetime  # noqa: E501
             )
             if not has_required_fields:
                 continue
@@ -84,3 +112,29 @@ class MeetingRoomBooking(models.Model):
                     f"Room '{record.room_id.name}"
                     f"' is already booked during this time slot."
                 )
+
+    def action_confirm(self):
+        for rec in self:
+            rec.status = "confirmed"
+
+    def action_draft(self):
+        for rec in self:
+            rec.status = "draft"
+
+    def action_cancel(self):
+        for rec in self:
+            rec.status = "cancelled"
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        print("testing_create", vals_list)
+        for vals in vals_list:
+            if not vals.get("reference") or vals["reference"] == "New":
+                vals["reference"] = self.env["ir.sequence"].next_by_code(
+                    "mrbook.booking"
+                )
+        return super().create(vals_list)
+
+    # returns next value from the sequence,
+    # passes value to ref
+    # then this vals list goes to create method

@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+
+        <menuitem
+            id="menu_mrbook_root"
+            name="Meeting Rooms"
+            sequence="10"
+            groups="mrbook.group_mrbook_user"/>
+
+        <menuitem
+            id="menu_mrbook_bookings"
+            name="Bookings"
+            parent="menu_mrbook_root"
+            sequence="10"
+            groups="mrbook.group_mrbook_user"/>
+
+        <menuitem
+            id="menu_mrbook_rooms"
+            name="Rooms"
+            parent="menu_mrbook_root"
+            sequence="20"
+            groups="mrbook.group_mrbook_manager"/>
+
+        <menuitem
+            id="menu_mrbook_booking_list"
+            name="All Bookings"
+            parent="menu_mrbook_bookings"
+            action="action_mrbook_booking"
+            sequence="10"
+            groups="mrbook.group_mrbook_user"/>
+
+        <menuitem
+            id="menu_mrbook_room_list"
+            name="All Rooms"
+            parent="menu_mrbook_rooms"
+            action="action_mrbook_room"
+            sequence="10"
+            groups="mrbook.group_mrbook_manager"/>
+
+        <menuitem
+            id="menu_mrbook_amenity_list"
+            name="Amenities"
+            parent="menu_mrbook_rooms"
+            action="action_mrbook_amenity"
+            sequence="20"
+            groups="mrbook.group_mrbook_manager"/>
+
+    </data>
+</odoo>

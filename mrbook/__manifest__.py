@@ -1,10 +1,19 @@
 {
     "name": "Meeting Room Booking",
+    "author": "Jango",
     "version": "1.0",
     "category": "Services",
     "summary": "Meeting Room Booking Module",
     "depends": ["base", "mail"],
-    "data": [],
+    "data": [
+        "security/groups.xml",
+        "security/ir.model.access.csv",
+        "security/record_rules.xml",
+        "data/sequence.xml",
+        "views/room_views.xml",
+        "views/booking_views.xml",
+        "views/menus.xml",
+    ],
     "installable": True,
     "application": True,
 }
