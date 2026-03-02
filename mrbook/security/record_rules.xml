@@ -5,6 +5,7 @@
             <field name="name">Booking: Users see own bookings</field>
             <field name="model_id" ref="model_mrbook_booking"/>
             <field name="groups" eval="[(4, ref('mrbook.group_mrbook_user'))]"/>
+            <!-- link user record to this filed-->
             <field name="domain_force">[('user_id', '=', user.id)]</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -17,6 +18,7 @@
             <field name="model_id" ref="model_mrbook_booking"/>
             <field name="groups" eval="[(4, ref('mrbook.group_mrbook_manager'))]"/>
             <field name="domain_force">[(1, '=', 1)]</field>
+            <!-- access rules already gave manager perms -->
         </record>
 
     </data>

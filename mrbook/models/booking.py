@@ -5,17 +5,14 @@ from odoo.exceptions import ValidationError
 class MeetingRoomBooking(models.Model):
     _name = "mrbook.booking"
     _description = "Meeting Room Booking"
-    _inherit = [
-        "mail.thread",
-        "mail.activity.mixin",
-    ]  # I'll add funct later
+    _inherit = ["mail.thread"]
 
     reference = fields.Char(
         string="Reference",
         required=True,
         tracking=True,
         copy=False,
-        default="New",  # noqa: F401
+        default="New",  # noqa: E501
     )
     _rec_name = "reference"
     room_id = fields.Many2one(
@@ -23,7 +20,7 @@ class MeetingRoomBooking(models.Model):
         string="Room",
         required=True,
         tracking=True,
-        ondelete="restrict",  # noqa: F401
+        ondelete="restrict",  # noqa: E501
     )
     # added ondelete restriction
     amenity_ids = fields.Many2many(
@@ -41,7 +38,7 @@ class MeetingRoomBooking(models.Model):
     end_datetime = fields.Datetime(string="End", required=True)
     duration = fields.Float(
         string="Duration (hours)", compute="_compute_duration", store=True
-    )
+    )  # I might need to sort duration
     status = fields.Selection(
         [
             ("draft", "Draft"),
@@ -70,6 +67,7 @@ class MeetingRoomBooking(models.Model):
                     raise ValidationError("End time must be after start time.")
 
                 time_diff = record.end_datetime - record.start_datetime
+                # datetime is lit date and time
                 duration_hours = time_diff.total_seconds() / 3600
                 if duration_hours < 0.5:
                     raise ValidationError(
@@ -82,36 +80,7 @@ class MeetingRoomBooking(models.Model):
                 if record.start_datetime <= fields.Datetime.now():
                     raise ValidationError("Start time mustn't be in the past")
 
-    # simplify
-    @api.constrains("room_id", "start_datetime", "end_datetime")
-    def _check_double_booking(self):
-        for record in self:  # fking black keeps changing
-            has_required_fields = (
-                record.room_id
-                and record.start_datetime
-                and record.end_datetime  # noqa: E501
-            )
-            if not has_required_fields:
-                continue
-
-            overlapping = self.env["mrbook.booking"].search(
-                [
-                    ("room_id", "=", record.room_id.id),  # srch our room
-                    ("id", "!=", record.id),  # exclude current record
-                    (
-                        "status",
-                        "!=",
-                        "cancelled",
-                    ),  # canceled bookings don't occupy room
-                    ("start_datetime", "<", record.end_datetime),
-                    ("end_datetime", ">", record.start_datetime),
-                ]
-            )
-            if overlapping:
-                raise ValidationError(
-                    f"Room '{record.room_id.name}"
-                    f"' is already booked during this time slot."
-                )
+    # add double booking constraint
 
     def action_confirm(self):
         for rec in self:

@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class MeetingRoom(models.Model):
@@ -21,6 +22,14 @@ class MeetingRoom(models.Model):
     amenity_ids = fields.Many2many("mrbook.amenity", string="Amenities")
     booking_ids = fields.One2many(
         "mrbook.booking", "room_id", string="Bookings"
-    )  # noqa: F401
+    )  # noqa: E501
 
     notes = fields.Text(string="Notes")
+
+    @api.constrains("capacity")
+    def _check_capacity(self):
+        for record in self:
+            print(record)
+            print(record.capacity)
+            if record.capacity <= 0:
+                raise ValidationError("Capacity cannot be less than 0 or 0")

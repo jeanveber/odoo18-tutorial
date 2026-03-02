@@ -7,10 +7,11 @@
             <field name="model">mrbook.room</field>
             <field name="arch" type="xml">
                 <list>
-                    <!-- what if we leave sheet and group-->
 
 
-                    <field name="name" widget="handle"/>
+
+                    <field name="name"/>
+                    <!--fked up here with handle widget-->
                     <field name="capacity"/>
                     <field name="location"/>
                     <field name="active"/>
