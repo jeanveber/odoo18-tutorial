@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 class MeetingRoomBooking(models.Model):
     _name = "mrbook.booking"
     _description = "Meeting Room Booking"
-    _inherit = ["mail.thread"]
+    _inherit = ["mail.thread", "mrbook.change_status"]
 
     reference = fields.Char(
         string="Reference",
@@ -39,15 +39,8 @@ class MeetingRoomBooking(models.Model):
     duration = fields.Float(
         string="Duration (hours)", compute="_compute_duration", store=True
     )  # I might need to sort duration
-    status = fields.Selection(
-        [
-            ("draft", "Draft"),
-            ("confirmed", "Confirmed"),
-            ("cancelled", "Cancelled"),
-        ],
-        default="draft",
-        tracking=True,
-    )
+    # moved it to abstract model
+
     notes = fields.Text(string="Notes")
 
     @api.depends("start_datetime", "end_datetime")
@@ -80,22 +73,11 @@ class MeetingRoomBooking(models.Model):
                 if record.start_datetime <= fields.Datetime.now():
                     raise ValidationError("Start time mustn't be in the past")
 
-    # add double booking constraint
-
-    def action_confirm(self):
-        for rec in self:
-            rec.status = "confirmed"
-
-    def action_draft(self):
-        for rec in self:
-            rec.status = "draft"
-
-    def action_cancel(self):
-        for rec in self:
-            rec.status = "cancelled"
+    # add double booking constraint later
 
     @api.model_create_multi
     def create(self, vals_list):
+
         print("Checking if it created", vals_list)
         for vals in vals_list:
             if not vals.get("reference") or vals["reference"] == "New":
