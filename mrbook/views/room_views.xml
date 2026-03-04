@@ -104,6 +104,30 @@
             </field>
         </record>
 
+        <!-- property search -->
+    <record id="view_mrbook_search" model="ir.ui.view">
+        <field name="name">mrbook.room.search</field>
+        <field name="model">mrbook.room</field>
+        <field name="arch" type="xml">
+        <search string="Room Search">
+            <!-- search fields -->
+            <field name="name" string="Title"/>
+
+            <filter
+            name="archived"
+            string="Archived"
+            domain="[('active', '=', False)]"/>
+
+            <filter
+            name="active"
+            domain="[('active', '=', True)]"/>
+
+        </search>
+        </field>
+    </record>
+
+
+
         <!--action-->
         <record id="action_mrbook_room" model="ir.actions.act_window">
             <field name="name">Rooms</field>

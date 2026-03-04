@@ -96,13 +96,16 @@ class MeetingRoomBooking(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        print("testing_create", vals_list)
+        print("Checking if it created", vals_list)
         for vals in vals_list:
             if not vals.get("reference") or vals["reference"] == "New":
                 vals["reference"] = self.env["ir.sequence"].next_by_code(
                     "mrbook.booking"
                 )
         return super().create(vals_list)
+
+    # I've tried putting return before, it didn't update New
+    # it returned and didn't do anything after.
 
     # returns next value from the sequence,
     # passes value to ref

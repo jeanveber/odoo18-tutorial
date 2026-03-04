@@ -1,12 +1,52 @@
 <odoo>
     <data>
+        <!-- Kanban view -->
+        <record id="view_mrbook_booking_kanban" model="ir.ui.view">
+        <field name="name">mrbook.booking.kanban</field>
+        <field name="model">mrbook.booking</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <field name="reference"/>
+                            <div>
+                                <field name="amenity_ids" widget="many2many_tags" options="{'color_field': 'color'}" readonly="True"/>
+                                <field name="room_id"/>
+                                <div>
+                                    <field name="status"/>
+                                </div>
 
-        <record id="action_mrbook_booking" model="ir.actions.act_window">
-            <field name="name">Bookings</field>
-            <field name="res_model">mrbook.booking</field>
-            <field name="view_mode">list,form</field>
+                                <div t-if="record.status.raw_value == 'confirmed'">
+                                    <field name="duration"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
         </record>
 
+               <!-- booking search -->
+        <record id="view_mrbook_booking_search" model="ir.ui.view">
+            <field name="name">mrbook.booking.search</field>
+            <field name="model">mrbook.booking</field>
+            <field name="arch" type="xml">
+            <search string="Booking Search">
+                <!-- search fields -->
+                <field name="reference" string="ID"/>
+
+                <filter name="confirmed" string="Confirmed" domain="[('status','=','confirmed')]"/>
+                <filter name="cancelled" string="Cancelled" domain="[('status','=','cancelled')]"/>
+                <filter name="draft" string="Draft" domain="[('status','=','draft')]"/>
+
+            </search>
+            </field>
+        </record>
+
+
+        <!-- booking form -->
         <record id="view_mrbook_booking_form" model="ir.ui.view">
             <field name="name">mrbook.booking.form</field>
             <field name="model">mrbook.booking</field>
@@ -58,6 +98,14 @@
                            decoration-danger="status=='cancelled'"/>
                 </list>
             </field>
+        </record>
+
+
+
+        <record id="action_mrbook_booking" model="ir.actions.act_window">
+            <field name="name">Bookings</field>
+            <field name="res_model">mrbook.booking</field>
+            <field name="view_mode">kanban,list,form</field>
         </record>
 
     </data>

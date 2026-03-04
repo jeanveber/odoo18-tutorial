@@ -1,5 +1,5 @@
-from odoo import models, fields
 from random import randint
+from odoo import models, fields
 
 
 class MeetingRoomAmenity(models.Model):
