@@ -86,6 +86,17 @@ class MeetingRoomBooking(models.Model):
                 )
         return super().create(vals_list)
 
+    """
+    def action_create_booking(self):
+        return{
+            "type": "ir.actions.act_window",
+            "name": "Create a Booking",
+            "res_model": "mrbook.booking.wizard",
+            "view_mode": "form",
+            "target": "new"
+        }
+    """
+
     # I've tried putting return before, it didn't update New
     # it returned and didn't do anything after.
 

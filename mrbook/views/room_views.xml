@@ -28,6 +28,10 @@
             <field name="model">mrbook.room</field>
             <field name="arch" type="xml">
                 <form>
+
+                    <header>
+                        <button name="%(mrbook.action_mrbook_booking_wizard)d" type="action" string="Create Booking" class="btn-primary" context="{'default_room_id': id}"/>
+                    </header>
                     <sheet>
                         <group>
                            <group string="Details">
@@ -147,6 +151,18 @@
             <field name="res_model">mrbook.amenity</field>
             <field name="view_mode">list,form</field>
         </record>
+
+        <record id="res_users_view_form" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit.mrbook</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <group>
+
+            </group>
+        </field>
+    </record>
+
 
     </data>
 </odoo>

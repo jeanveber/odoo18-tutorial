@@ -19,7 +19,15 @@
             name="Rooms"
             parent="menu_mrbook_root"
             sequence="20"
-            groups="mrbook.group_mrbook_manager"/>
+            groups="mrbook.group_mrbook_user"/>
+
+        <menuitem
+            id="menu_mrbook_booking_wizard"
+            name="Wizard"
+            parent="menu_mrbook_root"
+            action="action_mrbook_booking_wizard"
+            sequence="30"
+            groups="mrbook.group_mrbook_user"/>
 
         <menuitem
             id="menu_mrbook_booking_list"
@@ -35,7 +43,7 @@
             parent="menu_mrbook_rooms"
             action="action_mrbook_room"
             sequence="10"
-            groups="mrbook.group_mrbook_manager"/>
+            groups="mrbook.group_mrbook_user"/>
 
         <menuitem
             id="menu_mrbook_amenity_list"

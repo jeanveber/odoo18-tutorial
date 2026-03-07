@@ -13,6 +13,7 @@
         "views/room_views.xml",
         "views/booking_views.xml",
         "views/menus.xml",
+        "wizard/booking_wizard_views.xml",
     ],
     "installable": True,
     "application": True,

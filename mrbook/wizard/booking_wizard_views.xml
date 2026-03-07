@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- original was crm_lead_lost_view -->
+
+    <record id="view_mrbook_booking_wizard" model="ir.ui.view">
+        <field name="name">mrbook.create.booking.wizard</field>
+        <field name="model">mrbook.booking.wizard</field>
+        <field name="arch" type="xml">
+
+            <form string="Create Booking via Wizard">
+                <group>
+                    <field name="room_id"/>
+                    <field name="user_id"/>
+                </group>
+                <group>
+                    <field name="start_datetime"/>
+                    <field name="end_datetime"/>
+                </group>
+                    <field name="notes"/>
+                <!-- I added footer cause default new button doesn't work-->
+
+                    <button
+                        name="action_create_booking"
+                        string="Create Booking"
+                        type="object"
+                        class="btn-primary"/>
+                    <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"/>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrbook_booking_wizard" model="ir.actions.act_window">
+        <field name="name">Bookings</field>
+        <field name="res_model">mrbook.booking.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

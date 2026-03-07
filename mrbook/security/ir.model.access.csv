@@ -5,3 +5,5 @@ access_mrbook_amenity_user,access.mrbook.amenity.user,model_mrbook_amenity,mrboo
 access_mrbook_amenity_manager,access.mrbook.amenity.manager,model_mrbook_amenity,mrbook.group_mrbook_manager,1,1,1,1
 access_mrbook_booking_user,access.mrbook.booking.user,model_mrbook_booking,mrbook.group_mrbook_user,1,1,1,0
 access_mrbook_booking_manager,access.mrbook.booking.manager,model_mrbook_booking,mrbook.group_mrbook_manager,1,1,1,1
+access_mrbook_booking_wizard_user,access.mrbook.booking.wizard.user,model_mrbook_booking_wizard,mrbook.group_mrbook_user,1,1,1,0
+access_mrbook_booking_wizard_manager,access.mrbook.booking.wizard.manager,model_mrbook_booking_wizard,mrbook.group_mrbook_manager,1,1,1,1
