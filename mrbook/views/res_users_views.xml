@@ -1,0 +1,22 @@
+
+<odoo>
+    <record id="view_res_users_mrbook_inherit" model="ir.ui.view">
+        <field name="name">res.users.mrbook.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Bookings">
+                    <field name="booking_ids">
+                        <list>
+                            <field name="reference"/>
+                            <field name="room_id"/>
+                            <field name="start_datetime"/>
+                            <field name="status"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

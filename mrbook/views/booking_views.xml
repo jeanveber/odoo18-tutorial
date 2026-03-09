@@ -34,7 +34,7 @@
             <field name="model">mrbook.booking</field>
             <field name="arch" type="xml">
             <search string="Booking Search">
-                <!-- search fields -->
+
                 <field name="reference" string="ID"/>
 
                 <filter name="confirmed" string="Confirmed" domain="[('status','=','confirmed')]"/>
@@ -101,7 +101,6 @@
                 </list>
             </field>
         </record>
-
 
 
         <record id="action_mrbook_booking" model="ir.actions.act_window">

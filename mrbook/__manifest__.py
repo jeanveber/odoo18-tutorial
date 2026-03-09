@@ -14,6 +14,7 @@
         "views/booking_views.xml",
         "views/menus.xml",
         "wizard/booking_wizard_views.xml",
+        "views/res_users_views.xml",
     ],
     "installable": True,
     "application": True,
