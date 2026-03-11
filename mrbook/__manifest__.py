@@ -15,6 +15,8 @@
         "views/menus.xml",
         "wizard/booking_wizard_views.xml",
         "views/res_users_views.xml",
+        "report/mrbook_report.xml",
+        "report/mrbook_templates.xml",
     ],
     "installable": True,
     "application": True,

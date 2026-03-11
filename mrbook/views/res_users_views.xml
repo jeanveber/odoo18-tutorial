@@ -5,7 +5,19 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
-            <notebook position="inside">
+
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_bookings"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-calendar">
+                        <field name="booking_count" string="Bookings" widget="statinfo"/>
+                    </button>
+                </div>
+            </xpath>
+            <!-- <notebook position="inside"> I can also do that -->
+            <xpath expr="//notebook" position="inside">
                 <page string="Bookings">
                     <field name="booking_ids">
                         <list>
@@ -16,7 +28,9 @@
                         </list>
                     </field>
                 </page>
-            </notebook>
+            </xpath>
+            <!--</notebook>-->
+
         </field>
     </record>
 </odoo>

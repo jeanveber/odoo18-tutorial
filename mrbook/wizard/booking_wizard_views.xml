@@ -6,7 +6,6 @@
         <field name="name">mrbook.create.booking.wizard</field>
         <field name="model">mrbook.booking.wizard</field>
         <field name="arch" type="xml">
-
             <form string="Create Booking via Wizard">
                 <group>
                     <field name="room_id"/>
@@ -17,7 +16,7 @@
                     <field name="end_datetime"/>
                 </group>
                     <field name="notes"/>
-                <!-- I added footer cause default new button doesn't work-->
+                <!-- I added footer cause default new x doesn't work-->
 
                     <button
                         name="action_create_booking"

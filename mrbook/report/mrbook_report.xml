@@ -1,0 +1,10 @@
+<odoo>
+    <record id="action_report_mrbook_booking" model="ir.actions.report">
+        <field name="name">Booking Report</field>
+        <field name="model">mrbook.booking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="binding_model_id" ref="model_mrbook_booking"/>
+        <field name="report_name">mrbook.mrbook_booking_report_template</field>
+        <field name="report_file">mrbook.mrbook_booking_report_template</field>
+    </record>
+</odoo>

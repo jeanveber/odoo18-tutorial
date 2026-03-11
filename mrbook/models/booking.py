@@ -34,6 +34,12 @@ class MeetingRoomBooking(models.Model):
         default=lambda self: self.env.user,
         tracking=True,
     )  # we take odoo users and assign them as users
+
+    user_email = fields.Char(
+        string="Email",
+        related="user_id.login",
+        store=False,
+    )
     start_datetime = fields.Datetime(string="Start", required=True)
     end_datetime = fields.Datetime(string="End", required=True)
     duration = fields.Float(

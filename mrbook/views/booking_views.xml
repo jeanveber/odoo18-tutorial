@@ -92,6 +92,7 @@
                     <field name="reference"/>
                     <field name="room_id"/>
                     <field name="user_id"/>
+                    <field name="user_email"/>
                     <field name="start_datetime"/>
                     <field name="end_datetime"/>
                     <field name="duration"/>
